@@ -24,50 +24,45 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-   @Override
-protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-        throws ServletException, IOException {
-    
-    final String authHeader = request.getHeader("Authorization");
-    String username = null;
-    String jwt = null; // String များကို ပိုမိုရှင်းလင်းစွာ စတင် သတ်မှတ်ပါ
-    
-    // 1. Authorization Header မရှိပါက ချက်ချင်း Filter Chain ကို ဆက်ပြီး return ဖြင့် ထွက်ပါ
-    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-        filterChain.doFilter(request, response);
-        return; // 👈 ဤ return သည် အရေးကြီးဆုံးဖြစ်သည်။
-    }
-    
-    // 2. Token နှင့် Username ကို ရယူပါ (ဤနေရာသို့ ရောက်လာလျှင် Header ရှိနေပြီဖြစ်သည်)
-    jwt = authHeader.substring(7);
-    
-    try {
-        username = jwtHelper.getUsernameFromToken(jwt);
-    } catch (Exception e) {
-        // Token ပျက်စီးနေခြင်း၊ သက်တမ်းကုန်ခြင်း စသည်တို့ကို ဤနေရာတွင် log ထုတ်နိုင်သည်
-        logger.error("Error retrieving username from token: {}", e.getMessage());
-    }
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
-    // 3. Security Context ကို သတ်မှတ်ပါ
-    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-        
-        if (jwtHelper.validateToken(jwt, userDetails)) {
-            // Context ထဲသို့ Authentication ကို ထည့်သွင်းခြင်း (မှန်ကန်သည်)
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                    userDetails,
-                    null, 
-                    userDetails.getAuthorities());
+        final String authHeader = request.getHeader("Authorization");
+        String username = null;
+        String jwt = null;
 
-            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authToken);
-        } else {
-            logger.info("Token validation fails !!");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
         }
+
+        jwt = authHeader.substring(7);
+
+        try {
+            username = jwtHelper.getUsernameFromToken(jwt);
+        } catch (Exception e) {
+
+            logger.error("Error retrieving username from token: {}", e.getMessage());
+        }
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+
+            if (jwtHelper.validateToken(jwt, userDetails)) {
+
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        userDetails,
+                        null,
+                        userDetails.getAuthorities());
+
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else {
+                logger.info("Token validation fails !!");
+            }
+        }
+
+        filterChain.doFilter(request, response);
     }
-    
-    // 4. Logic အားလုံးပြီးဆုံးမှ Filter Chain ကို ဆက်လုပ်ပါ (တစ်ကြိမ်သာ)
-    filterChain.doFilter(request, response);
-}
 
 }
