@@ -1,13 +1,14 @@
-# 1. Base image
-FROM openjdk:17-jdk
+# 1️⃣ Base image
+FROM eclipse-temurin:21-jdk
 
-# 2. Set working directory inside container
+# 2️⃣ Set working directory inside container
 WORKDIR /app
 
-# 3. Copy JAR file from host into container
-COPY target/BLOG_APPLICATION-1.0.0.jar /app/BLOG_APPLICATION.jar
+# 3️⃣ Copy JAR file from target folder
+COPY target/*.jar app.jar
 
-# 4. Run the JAR file
-ENTRYPOINT ["java","-jar","BLOG_APPLICATION.jar"]
+# 4️⃣ Run the JAR file
+ENTRYPOINT ["java","-jar","app.jar"]
 
+# 5️⃣ Expose port
 EXPOSE 8080
