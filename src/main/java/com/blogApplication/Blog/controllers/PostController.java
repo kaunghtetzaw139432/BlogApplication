@@ -59,7 +59,7 @@ public class PostController {
     }
 
     @Operation(summary = "List of posts", description = "ALL POSTS")
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<PostResponse> all(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "5", required = false) int pageSize,
