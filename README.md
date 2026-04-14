@@ -1,46 +1,53 @@
-🚀 Blog Application API
-This is a Blog RESTful API project built with Spring Boot, designed to manage users, categories, posts, and comments.
+# 🚀 Enterprise Blog Engine - RESTful Web API
 
-✨ Key Features
-Authentication & Authorization: Implemented using JWT (JSON Web Tokens).
+A feature-rich, secure backend solution for modern blogging platforms. Built with **Spring Boot 3**, this API handles complex relationships between users, posts, categories, and comments, all while maintaining high security through **JWT** and **RBAC**.
 
-Role-Based Access Control (RBAC): Separate roles for ADMIN and USER.
+---
 
-Data Models: Users, Categories, Posts, and Comments.
+## 🎯 Project Overview
+This project focuses on building a robust backend ecosystem that follows REST principles. It emphasizes security and efficiency, implementing professional patterns like **Pagination**, **Global Exception Handling**, and **Data Transfer Objects (DTOs)**.
 
-Admin Control: ADMIN users can manage Categories and Users.
+## 🛠 Tech Stack
+* **Language:** Java 17+
+* **Framework:** Spring Boot 3.x
+* **Security:** Spring Security & JWT (JSON Web Token)
+* **Database:** MySQL (Production) / H2 (Testing)
+* **API Documentation:** Swagger UI / OpenAPI 3
+* **Build Tool:** Maven
 
-API Documentation: Swagger UI is included for easy testing and exploration of all API endpoints.
+## ✨ Core Features
 
-Pagination: Posts retrieval supports pagination for efficient data loading.
+### 🔐 Security & Access Control
+* **JWT Authentication:** Stateless security implementation for secure client-server communication.
+* **RBAC (Role-Based Access Control):** Granular access levels for `ADMIN` (Full Control) and `USER` (Content Creator) roles.
 
-⚙️ Technologies Used
-Backend: Java 17+ (or 21), Spring Boot 3
+### 📝 Content Management
+* **Post & Comment System:** Dynamic interaction between users and content with relational data integrity.
+* **Category Mapping:** Logical grouping of posts for better discoverability.
+* **Optimized Retrieval:** Server-side **Pagination and Sorting** for high-performance data loading.
 
-Database: MySQL (H2)
+### 🛠 Administrative Tools
+* **User Management:** Admin-exclusive endpoints to monitor and manage platform users.
+* **Category Control:** Centralized management of blog categories.
 
-Security: Spring Security, JWT (Json Web Token)
+## 🔗 Key API Endpoints (Quick Reference)
 
-Build Tool: Maven (or Gradle)
+| Category | Endpoint | Method | Access |
+| :--- | :--- | :--- | :--- |
+| **Auth** | `/auth/create-user` | `POST` | Public |
+| **Auth** | `/auth/login` | `POST` | Public |
+| **Users** | `/api/users` | `GET` | **ADMIN** |
+| **Posts** | `/api/posts?pageNo=0&pageSize=10` | `GET` | Public |
+| **Posts** | `/api/users/{userId}/posts` | `POST` | User/Admin |
+| **Comments** | `/api/posts/{postId}/comments` | `POST` | User/Admin |
 
-💻 Local Setup & Running
-Follow these steps to set up and run the project on your local machine.
+---
 
-1. Database Configuration
-Create a new MySQL Database (e.g., blogapp).
+## 🚀 Getting Started
 
-Update the src/main/resources/application.properties (or application.yml) file with your database credentials.
-
-API Documentation (Swagger UI)
-You can test and view the complete API documentation using Swagger UI.
-
-Endpoint,Method,Description,Access
-/auth/create-user,POST,Register a new user.,Public
-/auth/login,POST,Log in and obtain a JWT Token.,Public
-/api/users,GET,Retrieve all Users (Supports Pagination).,ADMIN
-/api/categories,POST,Create a new Category.,ADMIN
-/api/posts?pageNo=0&pageSize=10,GET,Retrieve all Posts with Pagination.,Public
-/api/users/{userId}/posts,POST,Create a new Post linked to a User.,USER / ADMIN
-/api/posts/{postId}/comments,POST,Add a Comment to a specific Post.,USER / ADMIN
-
-URL: http://localhost:3000/swagger-ui.html
+### 1. Database Setup
+Create a MySQL database named `blogapp` and update your `application.properties`:
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/blogapp
+spring.datasource.username=your_username
+spring.datasource.password=your_password
