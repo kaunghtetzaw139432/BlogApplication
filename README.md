@@ -7,6 +7,20 @@ A feature-rich, secure backend solution for modern blogging platforms. Built wit
 ## 🎯 Project Overview
 This project focuses on building a robust backend ecosystem that follows REST principles. It emphasizes security and efficiency, implementing professional patterns like **Pagination**, **Global Exception Handling**, and **Data Transfer Objects (DTOs)**.
 
+### 📖 Swagger UI Interface Preview
+
+Below are the screenshots from the live API documentation, showcasing the organized management of various modules.
+
+#### 1. User & Post Management
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c49b8c00-99dc-4c8b-abb7-616f7260771a" width="100%" style="border-radius: 10px; border: 1px solid #ddd;" alt="Swagger User & Post APIs">
+</p>
+
+#### 2. Category, Auth & Comment Management
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/da665403-3e1f-4d5f-827b-4e381556c7ad" width="100%" style="border-radius: 10px; border: 1px solid #ddd;" alt="Swagger Category & Auth APIs">
+</p>
+
 ## 🛠 Tech Stack
 * **Language:** Java 17+
 * **Framework:** Spring Boot 3.x
