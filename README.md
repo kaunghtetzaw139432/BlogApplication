@@ -1,4 +1,5 @@
 # 🚀 Enterprise Blog Engine - RESTful Web API
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 
 A feature-rich, secure backend solution for modern blogging platforms. Built with **Spring Boot 3**, this API handles complex relationships between users, posts, categories, and comments, all while maintaining high security through **JWT** and **RBAC**.
 
